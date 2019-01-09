@@ -1161,25 +1161,26 @@ exports.hasCssString = function(id, doc) {
 };
 
 exports.importCssString = function importCssString(cssText, id, container) {
-    // var root = container && container.getRootNode
-    //     ? container.getRootNode()
-    //     : document;
-    //
-    // var doc = root.ownerDocument || root;
-    // if (id && exports.hasCssString(id, root))
-    //     return null;
-    //
-    // if (id)
-    //     cssText += "\n/*# sourceURL=ace/css/" + id + " */";
-    //
-    // var style = exports.createElement("style");
-    // style.appendChild(doc.createTextNode(cssText));
-    // if (id)
-    //     style.id = id;
-    //
-    // if (root == doc)
-    //     root = exports.getDocumentHead(doc);
-    // root.insertBefore(style, root.firstChild);
+    var root = container && container.getRootNode
+        ? container.getRootNode()
+        : document;
+
+    var doc = root.ownerDocument || root;
+    if (id && exports.hasCssString(id, root))
+        return null;
+
+    if (id)
+        cssText += "\n/*# sourceURL=ace/css/" + id + " */";
+
+    var style = exports.createElement("style");
+    style.appendChild(doc.createTextNode(cssText));
+    if (id)
+        style.id = id;
+
+    if (root == doc)
+        root = exports.getDocumentHead(doc);
+
+    root.insertBefore(style, root.firstChild);
     console.log('importCssString: ' + id);
 };
 
